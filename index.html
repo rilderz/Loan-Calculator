@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>Loan Calculator</title>
+    <link rel="stylesheet" href="project%201/loan.css">
+    <script src="project%201/loan.js" defer></script>
+</head>
+<body>
+    <main class="app-shell">
+        <header class="page-header">
+            <p class="eyebrow">PLAN YOUR LOAN REPAYMENT</p>
+            <h1>Loan calculator</h1>
+            <p class="intro">Get a clear picture of your monthly payment and the total cost of your loan.</p>
+        </header>
+
+        <div class="calculator-layout">
+            <section class="panel input-panel" aria-labelledby="details-title">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">YOUR DETAILS</p>
+                        <h2 id="details-title">Loan information</h2>
+                    </div>
+                    <span class="step-badge" aria-hidden="true">01</span>
+                </div>
+
+                <form id="loan-form" novalidate>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="cur">Currency</label>
+                            <select id="cur" name="currency" autocomplete="off"></select>
+                        </div>
+                        <div class="field">
+                            <label for="yrs">Loan term</label>
+                            <div class="input-with-suffix">
+                                <input id="yrs" name="years" type="number" min="1" max="50" step="1" placeholder="e.g. 5" inputmode="numeric" required>
+                                <span>years</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="amt">Loan amount</label>
+                        <div class="input-with-prefix">
+                            <span id="currency-symbol" aria-hidden="true">$</span>
+                            <input id="amt" name="amount" type="number" min="0.01" step="0.01" placeholder="e.g. 4622" inputmode="decimal" required>
+                        </div>
+                        <small>Enter the amount you plan to borrow.</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="rate">Annual interest rate</label>
+                        <div class="input-with-suffix">
+                            <input id="rate" name="rate" type="number" min="0" max="100" step="0.01" placeholder="e.g. 4" inputmode="decimal" required>
+                            <span aria-hidden="true">%</span>
+                        </div>
+                        <small>Use the yearly interest rate offered by your lender.</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="start">Loan start date</label>
+                        <input id="start" name="startDate" type="date" required>
+                        <small>Your first payment is scheduled one month after this date.</small>
+                    </div>
+
+                    <p id="form-error" class="form-error" role="alert" hidden></p>
+                    <button class="reset-button" type="reset">Clear Form</button>
+                </form>
+            </section>
+
+            <section class="panel results-panel" aria-labelledby="summary-title" aria-live="polite">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">YOUR ESTIMATE</p>
+                        <h2 id="summary-title">Monthly Payment</h2>
+                    </div>
+                    <span class="step-badge result-badge" aria-hidden="true">02</span>
+                </div>
+
+                <p id="pmt" class="monthly-payment">—</p>
+                <p class="payment-caption">per month for <span id="n">—</span> payments</p>
+
+                <div class="summary-divider"></div>
+                <dl class="summary-list">
+                    <div>
+                        <dt>Loan Amount</dt>
+                        <dd id="principal-summary">—</dd>
+                    </div>
+                    <div>
+                        <dt>Total Interest</dt>
+                        <dd id="tint">—</dd>
+                    </div>
+                    <div class="total-row">
+                        <dt>Total Paid</dt>
+                        <dd id="tcost">—</dd>
+                    </div>
+                </dl>
+                <p class="estimate-note">Estimate only. Your actual payment may vary based on lender fees, payment timing, and loan terms.</p>
+            </section>
+        </div>
+
+        <section class="panel schedule-panel" aria-labelledby="schedule-title">
+            <div class="schedule-heading">
+                <div>
+                    <p class="eyebrow">MONTH BY MONTH</p>
+                    <h2 id="schedule-title">Payment Schedule</h2>
+                    <p class="schedule-description">See how each payment is applied to principal and interest.</p>
+                </div>
+                <div class="schedule-actions">
+                    <span id="schedule-count" class="schedule-count"></span>
+                    <button id="download-schedule" class="download-button" type="button" disabled>Download CSV</button>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <caption class="visually-hidden">Monthly loan repayment schedule</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Starting Balance</th>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Principal</th>
+                            <th scope="col">Interest</th>
+                            <th scope="col">Remaining Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows">
+                        <tr>
+                            <td class="empty-state" colspan="7">Enter valid loan details to see your payment schedule.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <footer class="page-footer">For planning purposes only — not a loan offer or financial advice.</footer>
+    </main>
+</body>
+</html>
